@@ -38,12 +38,25 @@ export const categories = () => {
     headers: {
       Authorization: "Bearer " + token,
     },
-    success: function (data) {
-      console.log("Data: " + data);
+    success: function (data, status, res) {
+      const response = res.responseJSON;
+      console.log("Data: ", response);
 
-      //   data.categories.forEach((category) =>
-      //     $("#data-container").add(`<p>${category.name}</p>`)
-      //   );
+      $("#data-container").append(
+        `<h1>Categories</h1><div class='category-list'></div>`
+      );
+
+      response.categories.items.forEach((item) => {
+        $(".category-list").append(`
+          <div class='category-item'>
+            <img 
+              src='${item.icons[0].url}' 
+              height=${item.icons[0].height} 
+              width=${item.icons[0].width} 
+              alt='${item.name} Icon' />
+            <h2>${item.name}</h2>
+          </div>`);
+      });
     },
     error: function (request, error) {
       console.log("Request: " + JSON.stringify(request));

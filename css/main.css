@@ -1,0 +1,24 @@
+/**
+--- CATEGORY LIST
+**/
+
+.category-list {
+  display: flex;
+  max-width: 90%;
+  flex-wrap: wrap;
+  margin: auto;
+}
+.category-item {
+  max-width: 200px;
+  margin: 20px;
+  text-align: center;
+}
+
+.category-item img {
+  width: 200px;
+  height: auto;
+}
+
+.category-item h2 {
+  margin: 20px 0;
+}
