@@ -1,6 +1,17 @@
 /**
+--- GENERAL
+**/
+body {
+  background-color: #222;
+  color: #fff;
+}
+
+/**
 --- CATEGORY LIST
 **/
+h1.h1test {
+  margin: 30px 15px;
+}
 
 .category-list {
   display: flex;
@@ -9,9 +20,19 @@
   margin: auto;
 }
 .category-item {
-  max-width: 200px;
+  width: 250px;
+  height: 250px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   margin: 20px;
   text-align: center;
+}
+.category-item:hover {
+  text-decoration: underline;
 }
 
 .category-item img {
@@ -20,15 +41,25 @@
 }
 
 .category-item h2 {
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
+  font-size: 1.5em;
 }
 
 /**
 --- MEDIA QUERIES
 **/
+@media (max-width: 800px) and (min-width: 533px) {
+  .category-list {
+    justify-content: center;
+  }
+}
 
 @media (max-width: 533px) {
   .category-item {
-    max-width: 35%;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  .category-item img {
+    width: 100%;
   }
 }

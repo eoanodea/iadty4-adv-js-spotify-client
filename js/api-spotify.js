@@ -43,17 +43,16 @@ export const categories = () => {
       console.log("Data: ", response);
 
       $("#data-container").append(
-        `<h1>Categories</h1><div class='category-list'></div>`
+        `<h1 class = 'h1test'> Categories</h1><div class='category-list'></div>`
       );
 
       response.categories.items.forEach((item) => {
         $(".category-list").append(`
-          <div class='category-item'>
-            <img 
-              src='${item.icons[0].url}' 
-              height=${item.icons[0].height} 
-              width=${item.icons[0].width} 
-              alt='${item.name} Icon' />
+          <div class='category-item'
+          style="
+    background-image: url(${item.icons[0].url})"
+          >
+          
             <h2>${item.name}</h2>
           </div>`);
       });
@@ -63,3 +62,11 @@ export const categories = () => {
     },
   });
 };
+
+
+
+{/* <img 
+          src='${item.icons[0].url}' 
+          height=${item.icons[0].height} 
+          width=${item.icons[0].width} 
+          alt='${item.name} Icon' /> */}
