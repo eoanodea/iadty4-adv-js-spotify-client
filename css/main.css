@@ -8,6 +8,12 @@ body {
 
 .bg-dark {
   background-color: #000000 !important;
+  color: #fff !important;
+}
+
+.bg-dark a,
+.bg-dark p {
+  color: #fff;
 }
 
 .page-title {
@@ -60,7 +66,7 @@ body {
 
 @media (max-width: 767.98px) {
   .sidebar {
-    top: 5rem;
+    top: 2rem;
   }
 }
 

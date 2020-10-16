@@ -21,6 +21,7 @@ export const authorize = () => {
     success: function (data) {
       console.log("Data: " + data);
       sessionStorage.setItem("token", JSON.stringify(data.access_token));
+      categories();
     },
     error: function (request, error) {
       console.log("Error: " + JSON.stringify(request));
@@ -62,8 +63,30 @@ export const categories = () => {
           </div>`);
       });
     },
-    error: function (request, error) {
-      console.log("Error!: " + JSON.stringify(request));
+    error: function (request, error, res) {
+      const msg = request.responseJSON;
+
+      console.log("Error!: " + msg);
+
+      renderErrorMessage(msg.error.message);
     },
   });
 };
+
+function renderErrorMessage(msg) {
+  $("#data-container").append(
+    `<div class='error-container' id="error">
+        <h2>Data Error</h2>
+        <p>${msg}</p>
+        <button id='retry-error' type="button" class="btn btn-primary">Retry</button>
+    </div>`
+  );
+
+  /**
+   * Error Recover Button Event Listener
+   */
+  $("#retry-error").click(function () {
+    console.log("hello");
+    authorize();
+  });
+}
