@@ -13,18 +13,34 @@ $(document).ready(function () {
    * Sort Data Event Listener
    */
   $("#sort-data").change(function () {
-    const items = $("#data-container .row").children();
+    let container = $("#data-container .row");
+    let items = container.children();
 
-    items.sort((a, b) => {
-      $(a).find("h2").text() > $(b).find("h2").text();
+    /**
+     * Attempting to implement sort method getting values of all text
+     */
+    items.sort(function (a, b) {
+      // console.log($(a).find("h2").text());
+      return $(a).find("h2").text() > $(b).find("h2").text();
     });
-    console.log(
-      "yeehaw",
-      $("#data-container .row")
-        .children()
-        .each(function (index) {
-          console.log($(this).text);
-        })
-    );
+    /**
+     * This returns div
+     */
+    console.log("items", items);
+
+    /**
+     * This throws an error
+     */
+    items.forEach((item) => console.log($(item).find("h2").text()));
+
+    container.append(items);
+    // console.log(
+    //   "yeehaw",
+    //   $("#data-container .row")
+    //     .children()
+    //     .each(function (index) {
+    //       console.log($(this).text);
+    //     })
+    // );
   });
 });
