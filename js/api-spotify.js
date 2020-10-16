@@ -1,6 +1,10 @@
 const baseUrl = "https://api.spotify.com";
 import variables from "./env.js";
 
+/**
+ * Get an auth token from Spotify
+ * And set it in the session Storage
+ */
 export const authorize = () => {
   const auth = btoa(`${variables.client_id}:${variables.client_secret}`);
 
@@ -19,7 +23,7 @@ export const authorize = () => {
       sessionStorage.setItem("token", JSON.stringify(data.access_token));
     },
     error: function (request, error) {
-      console.log("Request: " + JSON.stringify(request));
+      console.log("Error: " + JSON.stringify(request));
     },
   });
 };
@@ -42,12 +46,13 @@ export const categories = () => {
       const response = res.responseJSON;
       console.log("Data: ", response);
 
+      $("#page-title").text("Categories");
       $("#data-container").append(
-        `<h1 class = 'h1test'> Categories</h1><div class='category-list'></div>`
+        `<div class='category-list row' id="category-list"></div>`
       );
 
       response.categories.items.forEach((item) => {
-        $(".category-list").append(`
+        $("#category-list").append(`
           <div class='category-item'
           style="
     background-image: url(${item.icons[0].url})"
@@ -58,15 +63,7 @@ export const categories = () => {
       });
     },
     error: function (request, error) {
-      console.log("Request: " + JSON.stringify(request));
+      console.log("Error!: " + JSON.stringify(request));
     },
   });
 };
-
-
-
-{/* <img 
-          src='${item.icons[0].url}' 
-          height=${item.icons[0].height} 
-          width=${item.icons[0].width} 
-          alt='${item.name} Icon' /> */}
