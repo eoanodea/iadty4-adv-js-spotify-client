@@ -44,17 +44,32 @@ export const categories = () => {
       Authorization: "Bearer " + token,
     },
     success: function (data, status, res) {
+      /**
+       * If an error message was previously displayed
+       * empty the div
+       */
+      if ($("#error-box").length) {
+        $("#data-container").empty();
+      }
+
+      /**
+       * Get the JSON data from the response
+       */
       const response = res.responseJSON;
-      console.log("Data: ", response);
 
       $("#page-title").text("Categories");
       $("#data-container").append(
         `<div class='category-list row' id="category-list"></div>`
       );
 
+      /**
+       * Append each item to
+       * the #data-container div
+       */
       response.categories.items.forEach((item, i) => {
         $("#category-list").append(`
           <div class='category-item item-${i}'
+          key="${i}"
           style="
     background-image: url(${item.icons[0].url})"
           >
@@ -73,9 +88,13 @@ export const categories = () => {
   });
 };
 
+/**
+ * Render an error message to the screen
+ * @param {string} msg
+ */
 function renderErrorMessage(msg) {
   $("#data-container").append(
-    `<div class='error-container' id="error">
+    `<div class='error-container' id="error-box">
         <h2>Data Error</h2>
         <p>${msg}</p>
         <button id='retry-error' type="button" class="btn btn-primary">Retry</button>
@@ -86,7 +105,6 @@ function renderErrorMessage(msg) {
    * Error Recover Button Event Listener
    */
   $("#retry-error").click(function () {
-    console.log("hello");
     authorize();
   });
 }
