@@ -17,6 +17,7 @@ body {
 }
 
 .page-title {
+  text-transform: capitalize;
   font-weight: 700;
   font-size: 3.3em;
 }
@@ -24,6 +25,11 @@ body {
 /**
 --- NAV BAR
 **/
+
+.nav-link {
+  text-transform: capitalize;
+}
+
 .navbar-brand {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;

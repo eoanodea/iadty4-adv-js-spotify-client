@@ -1,5 +1,20 @@
+import { updateNavigation } from "./navigation.js";
 import { searchData } from "./search.js";
 import { sortByNestedText, sortByNestedKeys } from "./sort.js";
+
+/**
+ * Navigation Event Listener
+ *
+ * @param {string} id - ID of element to listen
+ */
+export const navigationListener = (id) => {
+  $(id).each((i, el) => {
+    $(el).click(function () {
+      const name = $(this).attr("href");
+      updateNavigation(name);
+    });
+  });
+};
 
 /**
  * Search Event Listener
@@ -10,7 +25,6 @@ import { sortByNestedText, sortByNestedKeys } from "./sort.js";
  * @ref Reference: https://mdbootstrap.com/docs/jquery/forms/search/
  */
 export const searchListener = (id, data) => {
-  console.log("search");
   $(id).on("input", function () {
     var value = $(this).val().toLowerCase();
     searchData($(data), "div", value);
@@ -23,7 +37,6 @@ export const searchListener = (id, data) => {
  * @param {string} data - Data Container of which to search
  */
 export const sortListener = (id, data) => {
-  console.log("sort!");
   $(id).change(function () {
     /**
      * Get the selected index from the select element

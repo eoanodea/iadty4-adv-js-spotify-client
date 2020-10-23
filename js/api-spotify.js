@@ -1,5 +1,10 @@
-const baseUrl = "https://api.spotify.com";
 import variables from "./env.js";
+
+const baseUrl = "https://api.spotify.com";
+const fetchDataType = [
+  { name: "categories", type: "categories" },
+  { name: "new-releases", type: "albums" },
+];
 
 /**
  * Get an auth token from Spotify
@@ -30,7 +35,78 @@ export const authorize = () => {
 };
 
 /**
- * Get albums from spotify
+ * Fetch Data from the spotify server depending on the provided parameters
+ *
+ * @param {string} hashName - the name of the spotify endpoint e.g. new-releases, categories
+ */
+export const fetchData = (hashName) => {
+  console.log("fetching data!", hashName);
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const name = hashName.replace("#", "");
+  const dataTypeI = fetchDataType.findIndex((item) => name.includes(item.name));
+  const type = fetchDataType[dataTypeI].type;
+
+  if (!token) return authorize();
+  $.ajax({
+    url: `${baseUrl}/v1/browse/${name}`,
+    type: "GET",
+    dataType: "json",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    success: function (data, status, res) {
+      /**
+       * If an error message was previously displayed
+       * empty the div
+       */
+      if ($("#error-box").length || $("#data-container").length) {
+        $("#data-container").empty();
+      }
+
+      /**
+       * Get the JSON data from the response
+       */
+      const response = res.responseJSON;
+
+      console.log("response!", response);
+
+      $("#page-title").text(name.replace("-", " "));
+      $("#data-container").append(
+        `<div class='category-list row' id="category-list"></div>`
+      );
+
+      /**
+       * Append each item to
+       * the #data-container div
+       */
+      response[type].items.forEach((item, i) => {
+        const imageURL =
+          type === "categories" ? item.icons[0].url : item.images[0].url;
+        $("#category-list").append(`
+          <div class='category-item item-${i}'
+          key="${i}"
+          style="
+    background-image: url(${imageURL})"
+          >
+          
+            <h2 class="title">${item.name}</h2>
+          </div>`);
+      });
+    },
+    error: function (request, error, res) {
+      const msg = request.responseJSON;
+
+      console.log("Error!: " + msg);
+
+      renderErrorMessage(msg.error.message);
+    },
+  });
+};
+
+/**
+ * Get categories from spotify
+ * //type categories
+ * //name categories
  */
 export const categories = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));

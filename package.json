@@ -1,0 +1,20 @@
+{
+  "name": "ca-1-javascript-and-jquery-eoanodea",
+  "version": "1.0.0",
+  "description": "A simple spotify client built for Advanced JavaScript CA1",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IADT-CC-Y4-AdvJS/ca-1-javascript-and-jquery-eoanodea.git"
+  },
+  "author": "Eoan O'Dea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IADT-CC-Y4-AdvJS/ca-1-javascript-and-jquery-eoanodea/issues"
+  },
+  "homepage": "https://github.com/IADT-CC-Y4-AdvJS/ca-1-javascript-and-jquery-eoanodea#readme",
+  "dependencies": {}
+}
