@@ -19,6 +19,7 @@ $(document).ready(function () {
   button.textContent = "Fancy button!";
   button.disabled = true;
   $("main").append(button);
+  button.drawRipple();
 
   /**
    * If no auth token is found, get one from spotify
