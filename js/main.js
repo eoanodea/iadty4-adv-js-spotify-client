@@ -20,18 +20,22 @@ $(document).ready(function () {
     const selectedIndex = $(this)[0].selectedIndex;
     const options = $(this).children();
 
+    /**
+     * If the user selects the default option
+     * sort by it's original order
+     */
     if (options[selectedIndex].id === "default") {
+      return sortByNestedKeys($("#data-container .row"), "div");
     }
 
-    console.log(options[selectedIndex].id);
     sortUsingNestedText(
       $("#data-container .row"),
       "div",
-      $(this).data("sortKey")
+      $(options[selectedIndex]).data("sortKey"),
+      options[selectedIndex].id !== "alphabetical"
     );
   });
 });
-// $("#data-container .row").children().first().attr("key");
 
 /**
  * Set up sort attributes
@@ -63,6 +67,23 @@ function sortUsingNestedText(
     var vB = $(keySelector, b).text();
     if (inverse) return vA > vB ? -1 : vA > vB ? 1 : 0;
     return vA < vB ? -1 : vA > vB ? 1 : 0;
+  });
+  parent.append(items);
+}
+
+/**
+ * Sort nested items within a jQuery array
+ * by their respected key
+ *
+ * @param {*} parent - The parent of the sorted array
+ * @param {*} childSelector - A single child within that array
+ */
+function sortByNestedKeys(parent, childSelector) {
+  const items = parent.children(childSelector).sort(function (a, b) {
+    const keyA = $(a).attr("key");
+    const keyB = $(b).attr("key");
+
+    return keyA < keyB ? -1 : keyA > keyB ? 1 : 0;
   });
   parent.append(items);
 }
