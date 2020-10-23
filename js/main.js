@@ -1,5 +1,6 @@
 import { authorize, categories } from "./api-spotify.js";
 import { sortByNestedText, sortByNestedKeys } from "./helpers/sort.js";
+import { searchData } from "./helpers/search.js";
 
 $(document).ready(function () {
   console.log("Document has loaded");
@@ -35,5 +36,15 @@ $(document).ready(function () {
       $(options[selectedIndex]).data("sortKey"),
       options[selectedIndex].id !== "alphabetical"
     );
+  });
+
+  /**
+   * Filter data event listener
+   *
+   * Reference: https://mdbootstrap.com/docs/jquery/forms/search/
+   */
+  $("#search-data").on("input", function () {
+    var value = $(this).val().toLowerCase();
+    searchData($("#data-container .row"), "div", value);
   });
 });

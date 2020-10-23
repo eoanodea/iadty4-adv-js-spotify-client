@@ -118,9 +118,6 @@ body {
 /**
 --- CATEGORY LIST
 **/
-.category-list {
-  justify-content: center;
-}
 .category-item {
   width: 180px;
   height: 180px;
