@@ -1,9 +1,11 @@
 import variables from "./env.js";
 
 const baseUrl = "https://api.spotify.com";
-const fetchDataType = [
+
+export const fetchDataType = [
   { name: "categories", type: "categories" },
   { name: "new-releases", type: "albums" },
+  { name: "featured-playlists", type: "playlists" },
 ];
 
 /**

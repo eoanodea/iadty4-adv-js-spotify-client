@@ -1,14 +1,14 @@
-import { fetchData } from "./../api-spotify.js";
+import { fetchDataType, fetchData } from "./../api-spotify.js";
 import { navigationListener } from "./listener.js";
 
-const navigationArr = [
-  { name: "categories", type: "categories", active: true },
-  { name: "new-releases", type: "albums", active: false },
-];
-
+/**
+ * Builds the sidebar navigation
+ *
+ * @param {string} name - The window hash, defaults to the browser url bar
+ */
 export const buildNavigation = (name = window.location.hash) => {
   if ($("#side-nav").length) $("#side-nav").empty();
-  navigationArr.forEach((item, i) => {
+  fetchDataType.forEach((item, i) => {
     const isActive = name.includes(item.name);
 
     $("#side-nav").append(`

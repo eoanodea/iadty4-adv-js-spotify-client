@@ -1,6 +1,7 @@
 import { authorize, fetchData } from "./api-spotify.js";
 import { searchListener, sortListener } from "./helpers/listener.js";
 import { buildNavigation } from "./helpers/navigation.js";
+import FancyButton from "./builders/categories.js";
 
 $(document).ready(function () {
   console.log("Document has loaded", window.location.hash);
@@ -8,6 +9,17 @@ $(document).ready(function () {
     window.location.hash = "categories";
   }
   buildNavigation();
+
+  // let button = document.createElement("button", { is: "fancy-button" });
+  // button.textContent = "Fancy button!";
+  // button.disabled = true;
+  // document.body.appendChild(button);
+
+  let button = new FancyButton();
+  button.textContent = "Fancy button!";
+  button.disabled = true;
+  $("main").append(button);
+
   /**
    * If no auth token is found, get one from spotify
    */
