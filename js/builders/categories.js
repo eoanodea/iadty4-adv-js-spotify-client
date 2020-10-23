@@ -1,23 +1,27 @@
 /**
- * Builds a category list, along with it's children
+ * Builds the category array to fill into
+ * the category template
  *
  * @param {*} items - The array of items from Spotify
+ */
+export const buildCategoryArr = (items) => {
+  let result = [];
+
+  items.forEach((item, i) => {
+    result.push({ name: item.name, imageURL: item.icons[0].url, i });
+  });
+
+  return result;
+};
+
+/**
+ * Builds a category list, along with it's children
+ *
  */
 export const categoryList = () => `
 <div class='item-list row' id="item-list">
 </div>
 `;
-
-//   console.log("items in coming ", items);
-//   let div = `<div class='item-list row' id="item-list">`;
-//   let categories = items.forEach((item, i) => {
-//     console.log("each item", item, i);
-//     return categoryItem(i, item.name, item.icons[0].url);
-//   });
-
-//   div += categories += "</div>";
-//   return div;
-// };
 
 /**
  *

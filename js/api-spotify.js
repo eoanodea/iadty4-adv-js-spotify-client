@@ -1,5 +1,10 @@
-import { albumList } from "./builders/albums.js";
-import { categoryList, categoryItem } from "./builders/categories.js";
+import { albumList, albumItem, buildAlbumArr } from "./builders/albums.js";
+
+import {
+  categoryList,
+  categoryItem,
+  buildCategoryArr,
+} from "./builders/categories.js";
 import variables from "./env.js";
 
 const baseUrl = "https://api.spotify.com";
@@ -68,18 +73,44 @@ export const fetchData = (hashName) => {
       }
 
       /**
+       * Set the page title
+       */
+      $("#page-title").text(name.replace("-", " "));
+
+      /**
        * Get the JSON data from the response
        */
       const response = res.responseJSON;
+      let itemsArr, list, singleItem;
+      if (type === "categories") {
+        itemsArr = buildCategoryArr(response[type].items);
+        list = categoryList();
+        singleItem = categoryItem;
+      } else {
+        itemsArr = buildAlbumArr(response[type].items);
+        list = albumList();
+        singleItem = albumItem;
+      }
 
-      let items = [];
-      response[type].items.forEach((item, i) => {
-        items.push({ name: item.name, imageURL: item.icons[0].url, i });
-      });
+      // switch(type) {
+      //   case 'categories':
+      //     itemsArr = buildCategoryArr(response[type].items);
+      //      list = categoryList();
+      //   break;
+      //   default:
+      //     itemsArr = buildAlbumArr(response[type].items);
+      //      list = albumList();
 
-      let list = categoryList();
+      // }
+      /**
+       * Build the item array and the item HTML list
+       */
+
+      /**
+       * Append to the document container
+       */
       $("#data-container").html(list);
-      $("#item-list").html(items.map(categoryItem).join(""));
+      $("#item-list").html(itemsArr.map(singleItem).join(""));
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;
