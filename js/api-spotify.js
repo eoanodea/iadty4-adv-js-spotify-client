@@ -52,14 +52,14 @@ export const categories = () => {
         `<div class='category-list row' id="category-list"></div>`
       );
 
-      response.categories.items.forEach((item) => {
+      response.categories.items.forEach((item, i) => {
         $("#category-list").append(`
-          <div class='category-item'
+          <div class='category-item item-${i}'
           style="
     background-image: url(${item.icons[0].url})"
           >
           
-            <h2>${item.name}</h2>
+            <h2 class="title">${item.name}</h2>
           </div>`);
       });
     },

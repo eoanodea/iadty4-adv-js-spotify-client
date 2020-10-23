@@ -13,34 +13,33 @@ $(document).ready(function () {
    * Sort Data Event Listener
    */
   $("#sort-data").change(function () {
-    let container = $("#data-container .row");
-    let items = container.children();
-
-    /**
-     * Attempting to implement sort method getting values of all text
-     */
-    items.sort(function (a, b) {
-      // console.log($(a).find("h2").text());
-      return $(a).find("h2").text() > $(b).find("h2").text();
-    });
-    /**
-     * This returns div
-     */
-    console.log("items", items);
-
-    /**
-     * This throws an error
-     */
-    items.forEach((item) => console.log($(item).find("h2").text()));
-
-    container.append(items);
-    // console.log(
-    //   "yeehaw",
-    //   $("#data-container .row")
-    //     .children()
-    //     .each(function (index) {
-    //       console.log($(this).text);
-    //     })
-    // );
+    sortUsingNestedText(
+      $("#data-container .row"),
+      "div",
+      $(this).data("sortKey")
+    );
   });
 });
+
+/**
+ * Set up sort attributes
+ */
+$("#sort-data").data("sortKey", "h2.title");
+
+/**
+ * Sort nested items within a jQuery array
+ *
+ * Reference: https://jsfiddle.net/tc5dc/
+ *
+ * @param {*} parent - The parent of the sorted array
+ * @param {*} childSelector - A single child within that array
+ * @param {*} keySelector - The item you want to sort by
+ */
+function sortUsingNestedText(parent, childSelector, keySelector) {
+  var items = parent.children(childSelector).sort(function (a, b) {
+    var vA = $(keySelector, a).text();
+    var vB = $(keySelector, b).text();
+    return vA < vB ? -1 : vA > vB ? 1 : 0;
+  });
+  parent.append(items);
+}
