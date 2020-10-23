@@ -1,3 +1,5 @@
+import { albumList } from "./builders/albums.js";
+import { categoryList, categoryItem } from "./builders/categories.js";
 import variables from "./env.js";
 
 const baseUrl = "https://api.spotify.com";
@@ -70,30 +72,14 @@ export const fetchData = (hashName) => {
        */
       const response = res.responseJSON;
 
-      console.log("response!", response);
-
-      $("#page-title").text(name.replace("-", " "));
-      $("#data-container").append(
-        `<div class='category-list row' id="category-list"></div>`
-      );
-
-      /**
-       * Append each item to
-       * the #data-container div
-       */
+      let items = [];
       response[type].items.forEach((item, i) => {
-        const imageURL =
-          type === "categories" ? item.icons[0].url : item.images[0].url;
-        $("#category-list").append(`
-          <div class='category-item item-${i}'
-          key="${i}"
-          style="
-    background-image: url(${imageURL})"
-          >
-          
-            <h2 class="title">${item.name}</h2>
-          </div>`);
+        items.push({ name: item.name, imageURL: item.icons[0].url, i });
       });
+
+      let list = categoryList();
+      $("#data-container").html(list);
+      $("#item-list").html(items.map(categoryItem).join(""));
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;
