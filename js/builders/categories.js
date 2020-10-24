@@ -19,8 +19,7 @@ export const buildCategoryArr = (items) => {
  *
  */
 export const categoryList = () => `
-<div class='item-list row' id="item-list">
-</div>
+  <div class='item-list row' id="item-list"></div>
 `;
 
 /**
@@ -30,10 +29,10 @@ export const categoryList = () => `
  * @param {string} imageURL - URL to the image
  */
 export const categoryItem = ({ i, name, imageURL }) => `
-<div class='list-item item-${i}'
-  key="${i}"
-  style="background-image: url(${imageURL})"
- >
- <h2 class="title">${name}</h2>
- </div>
+  <div class='list-item item-${i}'
+    key="${i}"
+    style="background-image: url(${imageURL})"
+  >
+  <h2 class="title">${name}</h2>
+</div>
 `;

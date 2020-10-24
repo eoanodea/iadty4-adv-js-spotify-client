@@ -19,8 +19,7 @@ export const buildAlbumArr = (items) => {
  *
  */
 export const albumList = () => `
-<div class='item-list row' id="item-list">
-</div>
+<div class='item-list row' id="item-list"></div>
 `;
 
 /**
@@ -31,7 +30,7 @@ export const albumList = () => `
  */
 export const albumItem = ({ i, name, imageURL }) => `
 <div class='album-item item-${i}' key="${i}">
- <img src='${imageURL}' alt='${name}' width="180" height="180" />
- <h2 class="title">${name}</h2>
+  <img src='${imageURL}' alt='${name}' width="180" height="180" />
+  <h2 class="title">${name}</h2>
  </div>
 `;
