@@ -96,15 +96,13 @@ export const fetchDetail = (hashName) => {
        * Get the JSON data from the response
        */
       const response = res.responseJSON;
-
+      console.log("tpypeee!!!", fetchDataType[dataTypeI]);
       /**
        * Builds the html data for the page
        * using the data type and JSON response
        */
-      const htmlData = buildDetail(
-        response[type].items,
-        fetchDataType[dataTypeI]
-      );
+      const htmlData = buildDetail(response, fetchDataType[dataTypeI]);
+      console.log("data", htmlData);
       /**
        * Append to the document container
        */

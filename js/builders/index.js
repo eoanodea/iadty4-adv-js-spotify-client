@@ -1,5 +1,6 @@
 import { albumList, buildAlbumArr, albumItem } from "./albums.js";
 import { categoryItem, categoryList, buildCategoryArr } from "./categories.js";
+import { buildPlaylistArr, playlistList, playlistItem } from "./playlists.js";
 
 /**
  * Determinds which detail to build
@@ -9,13 +10,15 @@ import { categoryItem, categoryList, buildCategoryArr } from "./categories.js";
  *
  * @returns {itemsArr, list, singleItem} - To be appended to the document
  */
-export const buildDetail = (items, type) => {
+export const buildDetail = (response, type) => {
+  console.log("type!", type, response);
   switch (type.name) {
     case "categories":
-      return buildCategory(items);
-    case "playlist":
+      return buildCategory(response[type.type].items);
+    case "playlists":
+      return buildPlaylist(response);
     default:
-      return buildAlbum(items, type);
+      return buildAlbum(response[type.type].items, type);
   }
 };
 /**
@@ -43,4 +46,12 @@ const buildAlbum = (items, type) => {
   const singleItem = albumItem;
 
   return { itemsArr, list, singleItem };
+};
+
+const buildPlaylist = (item) => {
+  const items = buildPlaylistArr(item);
+  const list = playlistList(items.header);
+  const singleItem = playlistItem;
+
+  return { itemsArr: items.tracks, list, singleItem };
 };
