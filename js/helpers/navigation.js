@@ -1,4 +1,4 @@
-import { fetchDataType, fetchData } from "./../api-spotify.js";
+import { fetchDataType, fetchData, fetchDetail } from "./../api-spotify.js";
 import { navigationListener } from "./listener.js";
 
 /**
@@ -31,5 +31,6 @@ export const buildNavigation = (name = window.location.hash) => {
 export const updateNavigation = (name) => {
   console.log("updating navigation!", name);
   buildNavigation(name);
+
   fetchData(name);
 };

@@ -5,7 +5,9 @@ import {
   categoryItem,
   buildCategoryArr,
 } from "./builders/categories.js";
+import { error } from "./builders/error.js";
 import variables from "./env.js";
+import { navigationListener } from "./helpers/listener.js";
 
 const baseUrl = "https://api.spotify.com";
 
@@ -48,11 +50,77 @@ export const authorize = () => {
  *
  * @param {string} hashName - the name of the spotify endpoint e.g. new-releases, categories
  */
-export const fetchData = (hashName) => {
-  console.log("fetching data!", hashName);
+export const fetchDetail = (hashName) => {
+  let name;
   const token = JSON.parse(sessionStorage.getItem("token"));
+  const dataTypeI = fetchDataType.findIndex((item) =>
+    hashName.includes(item.name)
+  );
+  let type = fetchDataType[dataTypeI].type;
+
+  name = hashName.replace("#", "").replace("=", "/");
+  type = "playlists";
+
+  if (!token) return authorize();
+  $.ajax({
+    url: `${baseUrl}/v1/browse/${name}/playlists`,
+    type: "GET",
+    dataType: "json",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    success: function (data, status, res) {
+      /**
+       * If an error message was previously displayed
+       * empty the div
+       */
+      if ($("#error-box").length || $("#data-container").length) {
+        $("#data-container").empty();
+      }
+      /**
+       * Set the page title
+       */
+      $("#page-title").text(name.split("/")[1].replace("_", " "));
+      /**
+       * Get the JSON data from the response
+       */
+      const response = res.responseJSON;
+      let itemsArr, list, singleItem;
+      if (type === "categories") {
+        itemsArr = buildCategoryArr(response[type].items);
+        list = categoryList();
+        singleItem = categoryItem;
+      } else {
+        itemsArr = buildAlbumArr(response[type].items, type);
+        list = albumList();
+        singleItem = albumItem;
+      }
+      /**
+       * Append to the document container
+       */
+      $("#data-container").html(list);
+      $("#item-list").html(itemsArr.map(singleItem).join(""));
+    },
+    error: function (request, error, res) {
+      const msg = request.responseJSON;
+      console.log("Error!: " + msg);
+      renderErrorMessage(msg.error.message);
+    },
+  });
+};
+
+/**
+ * Fetch Data from the spotify server depending on the provided parameters
+ *
+ * @param {string} hashName - the name of the spotify endpoint e.g. new-releases, categories
+ */
+export const fetchData = (hashName) => {
+  if (hashName.includes("=")) return fetchDetail(hashName);
   const name = hashName.replace("#", "");
-  const dataTypeI = fetchDataType.findIndex((item) => name.includes(item.name));
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const dataTypeI = fetchDataType.findIndex((item) =>
+    hashName.includes(item.name)
+  );
   const type = fetchDataType[dataTypeI].type;
 
   if (!token) return authorize();
@@ -87,91 +155,17 @@ export const fetchData = (hashName) => {
         list = categoryList();
         singleItem = categoryItem;
       } else {
-        itemsArr = buildAlbumArr(response[type].items);
+        itemsArr = buildAlbumArr(response[type].items, type);
         list = albumList();
         singleItem = albumItem;
       }
-
-      // switch(type) {
-      //   case 'categories':
-      //     itemsArr = buildCategoryArr(response[type].items);
-      //      list = categoryList();
-      //   break;
-      //   default:
-      //     itemsArr = buildAlbumArr(response[type].items);
-      //      list = albumList();
-
-      // }
-      /**
-       * Build the item array and the item HTML list
-       */
 
       /**
        * Append to the document container
        */
       $("#data-container").html(list);
       $("#item-list").html(itemsArr.map(singleItem).join(""));
-    },
-    error: function (request, error, res) {
-      const msg = request.responseJSON;
-
-      console.log("Error!: " + msg);
-
-      renderErrorMessage(msg.error.message);
-    },
-  });
-};
-
-/**
- * Get categories from spotify
- * //type categories
- * //name categories
- */
-export const categories = () => {
-  const token = JSON.parse(sessionStorage.getItem("token"));
-
-  if (!token) return authorize();
-  $.ajax({
-    url: `${baseUrl}/v1/browse/categories`,
-    type: "GET",
-    dataType: "json",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-    success: function (data, status, res) {
-      /**
-       * If an error message was previously displayed
-       * empty the div
-       */
-      if ($("#error-box").length) {
-        $("#data-container").empty();
-      }
-
-      /**
-       * Get the JSON data from the response
-       */
-      const response = res.responseJSON;
-
-      $("#page-title").text("Categories");
-      $("#data-container").append(
-        `<div class='category-list row' id="category-list"></div>`
-      );
-
-      /**
-       * Append each item to
-       * the #data-container div
-       */
-      response.categories.items.forEach((item, i) => {
-        $("#category-list").append(`
-          <div class='category-item item-${i}'
-          key="${i}"
-          style="
-    background-image: url(${item.icons[0].url})"
-          >
-          
-            <h2 class="title">${item.name}</h2>
-          </div>`);
-      });
+      navigationListener(".item-link");
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;
@@ -188,13 +182,12 @@ export const categories = () => {
  * @param {string} msg
  */
 function renderErrorMessage(msg) {
-  $("#data-container").append(
-    `<div class='error-container' id="error-box">
-        <h2>Data Error</h2>
-        <p>${msg}</p>
-        <button id='retry-error' type="button" class="btn btn-primary">Retry</button>
-    </div>`
-  );
+  $("#data-container").append(error(msg));
+  // `<div class='error-container' id="error-box">
+  //     <h2>Data Error</h2>
+  //     <p>${msg}</p>
+  //     <button id='retry-error' type="button" class="btn btn-primary">Retry</button>
+  // </div>`
 
   /**
    * Error Recover Button Event Listener

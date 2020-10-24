@@ -4,18 +4,24 @@
  *
  * @param {*} items - The array of items from Spotify
  */
-export const buildAlbumArr = (items) => {
+export const buildAlbumArr = (items, type) => {
   let result = [];
 
   items.forEach((item, i) => {
-    result.push({ name: item.name, imageURL: item.images[0].url, i });
+    result.push({
+      name: item.name,
+      imageURL: item.images[0].url,
+      i,
+      type,
+      id: item.id,
+    });
   });
 
   return result;
 };
 
 /**
- * Builds a album list, along with it's children
+ * Builds a album list wrapper
  *
  */
 export const albumList = () => `
@@ -28,9 +34,11 @@ export const albumList = () => `
  * @param {string} name - Item Title
  * @param {string} imageURL - URL to the image
  */
-export const albumItem = ({ i, name, imageURL }) => `
-<div class='album-item item-${i}' key="${i}">
-  <img src='${imageURL}' alt='${name}' width="180" height="180" />
-  <h2 class="title">${name}</h2>
- </div>
+export const albumItem = ({ i, id, type, name, imageURL }) => `
+<a href="#${type}=${id}" id='list-item-link' class="item-link">
+  <div class='album-item item-${i}' key="${i}" id='list-item'>
+    <img src='${imageURL}' alt='${name}' width="180" height="180" />
+    <h2 class="title">${name}</h2>
+  </div>
+ </a>
 `;

@@ -16,8 +16,6 @@ $(document).ready(function () {
   // else fetchData("new-releases", "albums");
   else fetchData(window.location.hash);
 
-  //
-
   /**
    * Set up listener modules
    */

@@ -160,6 +160,10 @@ body {
   text-align: center;
 }
 
+.item-link {
+  color: #fff;
+}
+
 /**
 --- MEDIA QUERIES
 **/

@@ -8,14 +8,19 @@ export const buildCategoryArr = (items) => {
   let result = [];
 
   items.forEach((item, i) => {
-    result.push({ name: item.name, imageURL: item.icons[0].url, i });
+    result.push({
+      name: item.name,
+      imageURL: item.icons[0].url,
+      i,
+      id: item.id,
+    });
   });
 
   return result;
 };
 
 /**
- * Builds a category list, along with it's children
+ * Builds a category list wrapper
  *
  */
 export const categoryList = () => `
@@ -28,11 +33,14 @@ export const categoryList = () => `
  * @param {string} name - Item Title
  * @param {string} imageURL - URL to the image
  */
-export const categoryItem = ({ i, name, imageURL }) => `
+export const categoryItem = ({ i, id, name, imageURL }) => `
+<a href="#categories=${id}" id='list-item-link' class="item-link">
   <div class='list-item item-${i}'
     key="${i}"
     style="background-image: url(${imageURL})"
+    id='list-item'
   >
   <h2 class="title">${name}</h2>
 </div>
+</a>
 `;

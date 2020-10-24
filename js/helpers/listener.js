@@ -8,6 +8,7 @@ import { sortByNestedText, sortByNestedKeys } from "./sort.js";
  * @param {string} id - ID of element to listen
  */
 export const navigationListener = (id) => {
+  console.log("nav link!!", id);
   $(id).each((i, el) => {
     $(el).click(function () {
       const name = $(this).attr("href");
