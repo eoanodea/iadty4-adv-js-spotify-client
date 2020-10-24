@@ -6,15 +6,24 @@ import {
   buildCategoryArr,
 } from "./builders/categories.js";
 import { error } from "./builders/error.js";
+import { buildDetail } from "./builders/index.js";
 import variables from "./env.js";
 import { navigationListener } from "./helpers/listener.js";
 
 const baseUrl = "https://api.spotify.com";
 
 export const fetchDataType = [
-  { name: "categories", type: "categories" },
-  { name: "new-releases", type: "albums" },
-  { name: "featured-playlists", type: "playlists" },
+  {
+    name: "category",
+    type: "playlists",
+    url: "browse/categories",
+    afterURL: "playlists",
+  },
+  { name: "categories", type: "categories", url: "browse/categories" },
+  { name: "new-releases", type: "albums", url: "browse/albums" },
+  { name: "featured-playlists", type: "playlists", url: "browse/playlists" },
+  { name: "playlists", type: "playlists", url: "playlists" },
+  { name: "playlist", type: "playlists", url: "playlists" },
 ];
 
 /**
@@ -37,7 +46,7 @@ export const authorize = () => {
     success: function (data) {
       console.log("Data: " + data);
       sessionStorage.setItem("token", JSON.stringify(data.access_token));
-      categories();
+      fetchData();
     },
     error: function (request, error) {
       console.log("Error: " + JSON.stringify(request));
@@ -51,19 +60,21 @@ export const authorize = () => {
  * @param {string} hashName - the name of the spotify endpoint e.g. new-releases, categories
  */
 export const fetchDetail = (hashName) => {
-  let name;
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const dataTypeI = fetchDataType.findIndex((item) =>
-    hashName.includes(item.name)
-  );
-  let type = fetchDataType[dataTypeI].type;
+  let detail = hashName.split("=")[1];
 
-  name = hashName.replace("#", "").replace("=", "/");
-  type = "playlists";
+  const dataTypeI = fetchDataType.findIndex(
+    (item) => item.name === hashName.split("=")[0].replace("#", "")
+  );
+
+  let type = fetchDataType[dataTypeI].type;
+  const url = fetchDataType[dataTypeI].url;
+  if (fetchDataType[dataTypeI].afterURL)
+    detail += `/${fetchDataType[dataTypeI].afterURL}`;
 
   if (!token) return authorize();
   $.ajax({
-    url: `${baseUrl}/v1/browse/${name}/playlists`,
+    url: `${baseUrl}/v1/${url}/${detail}`,
     type: "GET",
     dataType: "json",
     headers: {
@@ -80,26 +91,26 @@ export const fetchDetail = (hashName) => {
       /**
        * Set the page title
        */
-      $("#page-title").text(name.split("/")[1].replace("_", " "));
+      $("#page-title").text(detail);
       /**
        * Get the JSON data from the response
        */
       const response = res.responseJSON;
-      let itemsArr, list, singleItem;
-      if (type === "categories") {
-        itemsArr = buildCategoryArr(response[type].items);
-        list = categoryList();
-        singleItem = categoryItem;
-      } else {
-        itemsArr = buildAlbumArr(response[type].items, type);
-        list = albumList();
-        singleItem = albumItem;
-      }
+
+      /**
+       * Builds the html data for the page
+       * using the data type and JSON response
+       */
+      const htmlData = buildDetail(
+        response[type].items,
+        fetchDataType[dataTypeI]
+      );
       /**
        * Append to the document container
        */
-      $("#data-container").html(list);
-      $("#item-list").html(itemsArr.map(singleItem).join(""));
+      $("#data-container").html(htmlData.list);
+      $("#item-list").html(htmlData.itemsArr.map(htmlData.singleItem).join(""));
+      navigationListener(".item-link");
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;
@@ -114,7 +125,7 @@ export const fetchDetail = (hashName) => {
  *
  * @param {string} hashName - the name of the spotify endpoint e.g. new-releases, categories
  */
-export const fetchData = (hashName) => {
+export const fetchData = (hashName = window.location.hash) => {
   if (hashName.includes("=")) return fetchDetail(hashName);
   const name = hashName.replace("#", "");
   const token = JSON.parse(sessionStorage.getItem("token"));
@@ -183,11 +194,6 @@ export const fetchData = (hashName) => {
  */
 function renderErrorMessage(msg) {
   $("#data-container").append(error(msg));
-  // `<div class='error-container' id="error-box">
-  //     <h2>Data Error</h2>
-  //     <p>${msg}</p>
-  //     <button id='retry-error' type="button" class="btn btn-primary">Retry</button>
-  // </div>`
 
   /**
    * Error Recover Button Event Listener

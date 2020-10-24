@@ -13,7 +13,6 @@ $(document).ready(function () {
    * If no auth token is found, get one from spotify
    */
   if (!sessionStorage.getItem("token")) authorize();
-  // else fetchData("new-releases", "albums");
   else fetchData(window.location.hash);
 
   /**

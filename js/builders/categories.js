@@ -34,7 +34,7 @@ export const categoryList = () => `
  * @param {string} imageURL - URL to the image
  */
 export const categoryItem = ({ i, id, name, imageURL }) => `
-<a href="#categories=${id}" id='list-item-link' class="item-link">
+<a href="#category=${id}" id='list-item-link' class="item-link">
   <div class='list-item item-${i}'
     key="${i}"
     style="background-image: url(${imageURL})"
