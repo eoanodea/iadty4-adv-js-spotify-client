@@ -78,11 +78,15 @@ export const playlistList = ({
  * @param {string} imageURL - URL to the image
  */
 export const playlistItem = ({ i, id, name, duration, href }) => `
-<a href="${href}" key=${id} target="_blank" id='list-item-link' class="item-link">
-  <tr>
+
+<tr data-href="${href}">
     <th scope="row">${i}</th>
-    <td>${name}</td>
+    <td>hello ${name}</td>
     <td>${duration}</td>
  </tr>
-</a>
 `;
+
+{
+  /* <a href="${href}" key=${i} target="_blank" id='list-item-link' ></a> */
+}
+// </a>

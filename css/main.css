@@ -124,9 +124,15 @@ body {
 /**
 --- CATEGORY LIST
 **/
+
+.item-list {
+  justify-content: center;
+}
+
 .list-item {
   width: 180px;
   height: 180px;
+  border-radius: 8px;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -143,6 +149,7 @@ body {
 
 .list-item:hover {
   text-decoration: underline;
+  color: #65d36e;
 }
 
 .list-item img {
