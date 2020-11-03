@@ -3,7 +3,6 @@ import { searchListener, sortListener } from "./helpers/listener.js";
 import { buildNavigation } from "./helpers/navigation.js";
 
 $(document).ready(function () {
-  console.log("Document has loaded", window.location.hash);
   if (window.location.hash === "") {
     window.location.hash = "categories";
   }

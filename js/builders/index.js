@@ -11,7 +11,6 @@ import { buildPlaylistArr, playlistList, playlistItem } from "./playlists.js";
  * @returns {itemsArr, list, singleItem} - To be appended to the document
  */
 export const buildDetail = (response, type) => {
-  console.log("type!", type, response);
   switch (type.name) {
     case "categories":
       return buildCategory(response[type.type].items);
@@ -40,7 +39,6 @@ const buildCategory = (items) => {
  * @param {*} type - the type of data it is
  */
 const buildAlbum = (items, type) => {
-  console.log("type!!!", type);
   const itemsArr = buildAlbumArr(items, type.type);
   const list = albumList();
   const singleItem = albumItem;

@@ -44,7 +44,6 @@ export const authorize = () => {
       grant_type: "client_credentials",
     },
     success: function (data) {
-      console.log("Data: " + data);
       sessionStorage.setItem("token", JSON.stringify(data.access_token));
       fetchData();
     },
@@ -88,21 +87,18 @@ export const fetchDetail = (hashName) => {
       if ($("#error-box").length || $("#data-container").length) {
         $("#data-container").empty();
       }
-      /**
-       * Set the page title
-       */
-      $("#page-title").text(detail);
+
       /**
        * Get the JSON data from the response
        */
       const response = res.responseJSON;
-      console.log("tpypeee!!!", fetchDataType[dataTypeI]);
+
       /**
        * Builds the html data for the page
        * using the data type and JSON response
        */
-      const htmlData = buildDetail(response, fetchDataType[dataTypeI]);
-      console.log("data", htmlData);
+      const htmlData = buildDetail(response, fetchDataType[dataTypeI], detail);
+
       /**
        * Append to the document container
        */

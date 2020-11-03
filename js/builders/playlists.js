@@ -10,8 +10,10 @@ export const buildPlaylistArr = (item) => {
   item.tracks.items.forEach((item, i) => {
     tracks.push({
       name: item.track.name,
+      duration: item.track.duration_ms,
       i,
       id: item.track.id,
+      href: item.track.external_urls.spotify,
     });
   });
   const header = {
@@ -36,15 +38,35 @@ export const playlistList = ({
   owner,
   primary_color,
 }) => {
-  console.log("yes!", name);
+  /**
+   * Set the page title
+   */
+  $("#page-title").text(name);
+
+  return `
+  <table class='table'>
+    <thead>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Duration</th>
+    </thead>
+    <tbody id="item-list">
+
+    </tbody>
+  </table>
+`;
+
   return `
 <div class='item-list row' id="item-list">
-<div 
-  class='playlist-header' 
-  style="background-image: url(${imageURL})"
-  >
-<h2>${name}</h2>
-</div>
+  <div 
+    class='playlist-header' 
+    style="background-image: url(${imageURL})"
+    >
+    <h2>${name}</h2>
+    <h2>${followers}</h2>
+    <h2>${owner}</h2>
+    <h2>${primary_color}</h2>
+  </div>
 </div>
 `;
 };
@@ -55,10 +77,12 @@ export const playlistList = ({
  * @param {string} name - Item Title
  * @param {string} imageURL - URL to the image
  */
-export const playlistItem = ({ i, id, name, imageURL }) => `
-<a href="#playlist=${id}" id='list-item-link' class="item-link">
-  <div class='playlist-item item-${i}' key="${i}" id='list-item'>
-    <h2 class="song-title">${name}</h2>
-  </div>
- </a>
+export const playlistItem = ({ i, id, name, duration, href }) => `
+<a href="${href}" key=${id} target="_blank" id='list-item-link' class="item-link">
+  <tr>
+    <th scope="row">${i}</th>
+    <td>${name}</td>
+    <td>${duration}</td>
+ </tr>
+</a>
 `;

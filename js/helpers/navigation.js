@@ -29,8 +29,6 @@ export const buildNavigation = (name = window.location.hash) => {
 };
 
 export const updateNavigation = (name) => {
-  console.log("updating navigation!", name);
   buildNavigation(name);
-
   fetchData(name);
 };
