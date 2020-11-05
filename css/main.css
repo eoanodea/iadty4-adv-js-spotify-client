@@ -152,7 +152,12 @@ body {
   margin: 10px;
 }
 
-.list-item:hover {
+.album-item img {
+  border-radius: 8px;
+}
+
+.list-item:hover,
+.album-item:hover {
   text-decoration: underline;
   color: #65d36e;
 }

@@ -35,8 +35,8 @@ export const albumList = () => `
  * @param {string} imageURL - URL to the image
  */
 export const albumItem = ({ i, id, type, name, imageURL }) => `
-<a href="#${type}=${id}" id='list-item-link' class="item-link">
-  <div class='album-item item-${i}' key="${i}" id='list-item'>
+<a href="#${type}=${id}" id='list-item-link' class="item-link item-${i}" key="${i}">
+  <div class='album-item' id='list-item'>
     <img src='${imageURL}' alt='${name}' width="180" height="180" />
     <h2 class="title">${name}</h2>
   </div>

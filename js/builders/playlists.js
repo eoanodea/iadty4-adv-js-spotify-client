@@ -92,7 +92,7 @@ export const playlistDesc = (description, followers, owner) => `
  * @param {String} href - The URL to the song on Spotify web
  */
 export const playlistItem = ({ i, name, duration, href }) => `
-<tr class="clickable-row" data-href="${href}">
+<tr class="clickable-row" data-href="${href}" key="${i}">
     <th scope="row">${i}</th>
     <td>${name}</td>
     <td>${millisecondsToTime(duration)}</td>

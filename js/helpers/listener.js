@@ -1,9 +1,15 @@
 import { updateNavigation } from "./navigation.js";
 import { searchData } from "./search.js";
-import { sortByNestedText, sortByNestedKeys } from "./sort.js";
+import {
+  sortByNestedText,
+  sortByNestedKeys,
+  resetSortOptions,
+} from "./sort.js";
 
 /**
  * Navigation Event Listener
+ *
+ * Listen for a change in the navigation, and reset the sort select
  *
  * @param {string} id - ID of element to listen
  */
@@ -14,6 +20,7 @@ export const navigationListener = (id) => {
       updateNavigation(name);
     });
   });
+  resetSortOptions();
 };
 
 /**

@@ -48,3 +48,10 @@ export const sortByNestedKeys = (parent, childSelector) => {
   });
   parent.append(items);
 };
+
+/**
+ * Sets the sort select back to default
+ */
+export const resetSortOptions = () => {
+  $("#sort-data")[0].selectedIndex = 0;
+};
