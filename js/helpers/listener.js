@@ -50,12 +50,14 @@ export const sortListener = (id, data) => {
      * sort by it's original order
      */
     if (options[selectedIndex].id === "default") {
-      return sortByNestedKeys($(data), "div");
+      return sortByNestedKeys($(data), $(data).children()[0]);
     }
-
+    /**
+     * If not, sort the data by either A-Z or Z-A
+     */
     sortByNestedText(
       $(data),
-      "div",
+      $(data).children()[0],
       $(options[selectedIndex]).data("sortKey"),
       options[selectedIndex].id !== "alphabetical"
     );

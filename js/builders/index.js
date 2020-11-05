@@ -11,7 +11,6 @@ import { buildPlaylistArr, playlistList, playlistItem } from "./playlists.js";
  * @returns {itemsArr, list, singleItem} - To be appended to the document
  */
 export const buildDetail = (response, type) => {
-  console.log("type!", type, response);
   switch (type.name) {
     case "categories":
       return buildCategory(response[type.type].items);

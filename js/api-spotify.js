@@ -137,7 +137,7 @@ export const fetchData = (hashName = window.location.hash) => {
   const dataTypeI = fetchDataType.findIndex((item) =>
     hashName.includes(item.name)
   );
-  console.log("type type!", hashName, name);
+
   const type = fetchDataType[dataTypeI].type;
 
   if (!token) return authorize();
