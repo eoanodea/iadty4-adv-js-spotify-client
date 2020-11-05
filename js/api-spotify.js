@@ -1,21 +1,38 @@
-import { albumList, albumItem, buildAlbumArr } from "./builders/albums.js";
-
-import {
-  categoryList,
-  categoryItem,
-  buildCategoryArr,
-} from "./builders/categories.js";
-import { error } from "./builders/error.js";
-import { buildDetail } from "./builders/index.js";
+/**
+ * Environment Variable import
+ */
 import variables from "./env.js";
+
+/**
+ * Listeners import
+ */
 import {
   navigationListener,
   sortListener,
   searchListener,
 } from "./helpers/listener.js";
 
+/**
+ * Builder modules import
+ */
+import { buildDetail } from "./builders/index.js";
+import { albumList, albumItem, buildAlbumArr } from "./builders/albums.js";
+import {
+  categoryList,
+  categoryItem,
+  buildCategoryArr,
+} from "./builders/categories.js";
+import { error } from "./builders/error.js";
+
+/**
+ * Base URL for Spotify API
+ */
 const baseUrl = "https://api.spotify.com";
 
+/**
+ * Different types of data in the application
+ * display boolean set to true when it displays on the navigation bar
+ */
 export const fetchDataType = [
   {
     name: "category",
