@@ -26,6 +26,7 @@ export const fetchDataType = [
     display: true,
   },
   { name: "new-releases", type: "albums", url: "browse/albums", display: true },
+  { name: "albums", type: "albums", url: "albums", display: false },
   {
     name: "featured-playlists",
     type: "playlists",
@@ -136,6 +137,7 @@ export const fetchData = (hashName = window.location.hash) => {
   const dataTypeI = fetchDataType.findIndex((item) =>
     hashName.includes(item.name)
   );
+  console.log("type type!", hashName, name);
   const type = fetchDataType[dataTypeI].type;
 
   if (!token) return authorize();

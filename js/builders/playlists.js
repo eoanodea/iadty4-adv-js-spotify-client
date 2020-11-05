@@ -6,7 +6,7 @@
  */
 export const buildPlaylistArr = (item) => {
   let tracks = [];
-  console.log("building!", item);
+
   item.tracks.items.forEach((item, i) => {
     tracks.push({
       name: item.track.name,
@@ -18,7 +18,7 @@ export const buildPlaylistArr = (item) => {
   });
   const header = {
     name: item.name,
-    imageURL: item.images[0].url,
+    description: item.description,
     followers: item.followers.total,
     owner: item.owner.display_name,
     primary_color: item.primary_color,
@@ -31,19 +31,14 @@ export const buildPlaylistArr = (item) => {
  * Builds a playlist list wrapper
  *
  */
-export const playlistList = ({
-  name,
-  imageURL,
-  followers,
-  owner,
-  primary_color,
-}) => {
+export const playlistList = ({ name, description, followers, owner }) => {
   /**
    * Set the page title
    */
   $("#page-title").text(name);
 
   return `
+  ${playlistDesc(description, followers, owner)}
   <table class='table'>
     <thead>
       <th scope="col">#</th>
@@ -55,21 +50,19 @@ export const playlistList = ({
     </tbody>
   </table>
 `;
+};
 
-  return `
-<div class='item-list row' id="item-list">
-  <div 
-    class='playlist-header' 
-    style="background-image: url(${imageURL})"
-    >
-    <h2>${name}</h2>
-    <h2>${followers}</h2>
-    <h2>${owner}</h2>
-    <h2>${primary_color}</h2>
+export const playlistDesc = (description, followers, owner) => `
+<div class="container">
+<div class="row">
+  <p class="col">${description}</p>
+  <div class="col row justify-content-end">
+    <p class="text-muted">Followers: <br /> ${followers}</p>
+    <p class="text-muted">Created by: <br /> ${owner}</p>
+  </div>
   </div>
 </div>
 `;
-};
 
 /**
  *
@@ -78,15 +71,9 @@ export const playlistList = ({
  * @param {string} imageURL - URL to the image
  */
 export const playlistItem = ({ i, id, name, duration, href }) => `
-
-<tr data-href="${href}">
+<tr class="clickable-row" data-href="${href}">
     <th scope="row">${i}</th>
-    <td>hello ${name}</td>
+    <td>${name}</td>
     <td>${duration}</td>
  </tr>
 `;
-
-{
-  /* <a href="${href}" key=${i} target="_blank" id='list-item-link' ></a> */
-}
-// </a>
