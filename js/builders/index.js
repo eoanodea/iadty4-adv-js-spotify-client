@@ -33,7 +33,8 @@ const buildCategory = (items) => {
   const itemsArr = buildCategoryArr(items);
   const list = categoryList();
   const singleItem = categoryItem;
-  return { itemsArr, list, singleItem };
+  const dataName = "#data-container .row";
+  return { itemsArr, list, singleItem, dataName };
 };
 
 /**
@@ -46,8 +47,9 @@ const buildAlbum = (items, type) => {
   const itemsArr = buildAlbumArr(items, type.type);
   const list = albumList();
   const singleItem = albumItem;
+  const dataName = "#data-container .row";
 
-  return { itemsArr, list, singleItem };
+  return { itemsArr, list, singleItem, dataName };
 };
 
 /**
@@ -59,8 +61,9 @@ const buildPlaylist = (item) => {
   const items = buildPlaylistArr(item);
   const list = playlistList(items.header);
   const singleItem = playlistItem;
+  const dataName = "#data-container #item-list";
 
-  return { itemsArr: items.tracks, list, singleItem };
+  return { itemsArr: items.tracks, list, singleItem, dataName };
 };
 
 /**
@@ -72,6 +75,7 @@ const buildSongs = (item) => {
   const items = buildSongsArr(item);
   const list = songList(items.header);
   const singleItem = songItem;
+  const dataName = "#data-container #item-list";
 
-  return { itemsArr: items.tracks, list, singleItem };
+  return { itemsArr: items.tracks, list, singleItem, dataName };
 };

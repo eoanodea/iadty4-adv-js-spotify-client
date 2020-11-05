@@ -39,7 +39,7 @@ export const categoryItem = ({ i, id, name, imageURL }) => `
     style="background-image: url(${imageURL})"
     id='list-item'
   >
-  <h2 class="title">${name}</h2>
+  <h2 class="title sort-text">${name}</h2>
 </div>
 </a>
 `;

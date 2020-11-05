@@ -105,7 +105,7 @@ export const playlistDesc = (description, followers, owner) => `
 export const playlistItem = ({ i, name, duration, href }) => `
 <tr class="clickable-row" data-href="${href}" key="${i}">
     <th scope="row">${i}</th>
-    <td>${name}</td>
+    <td class="sort-text">${name}</td>
     <td>${millisecondsToTime(duration)}</td>
  </tr>
 `;

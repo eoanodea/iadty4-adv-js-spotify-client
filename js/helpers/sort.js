@@ -1,8 +1,8 @@
 /**
  * Set up sort attributes
  */
-$("#alphabetical").data("sortKey", "h2.title");
-$("#reverse").data("sortKey", "h2.title");
+$("#alphabetical").data("sortKey", ".sort-text");
+$("#reverse").data("sortKey", ".sort-text");
 $("#default").data("sortKey", function () {
   return $(this).attr("key");
 });

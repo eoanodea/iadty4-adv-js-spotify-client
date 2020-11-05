@@ -13,10 +13,4 @@ $(document).ready(function () {
    */
   if (!sessionStorage.getItem("token")) authorize();
   else fetchData(window.location.hash);
-
-  /**
-   * Set up listener modules
-   */
-  searchListener("#search-data", "#data-container .row");
-  sortListener("#sort-data", "#data-container .row");
 });

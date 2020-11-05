@@ -8,7 +8,11 @@ import {
 import { error } from "./builders/error.js";
 import { buildDetail } from "./builders/index.js";
 import variables from "./env.js";
-import { navigationListener } from "./helpers/listener.js";
+import {
+  navigationListener,
+  sortListener,
+  searchListener,
+} from "./helpers/listener.js";
 
 const baseUrl = "https://api.spotify.com";
 
@@ -78,7 +82,6 @@ export const fetchDetail = (hashName) => {
     (item) => item.name === hashName.split("=")[0].replace("#", "")
   );
 
-  let type = fetchDataType[dataTypeI].type;
   const url = fetchDataType[dataTypeI].url;
   if (fetchDataType[dataTypeI].afterURL)
     detail += `/${fetchDataType[dataTypeI].afterURL}`;
@@ -117,6 +120,11 @@ export const fetchDetail = (hashName) => {
       $("#data-container").html(htmlData.list);
       $("#item-list").html(htmlData.itemsArr.map(htmlData.singleItem).join(""));
       navigationListener(".item-link");
+      /**
+       * Set up listener modules
+       */
+      searchListener("#search-data", htmlData.dataName);
+      sortListener("#sort-data", htmlData.dataName);
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;
@@ -184,6 +192,12 @@ export const fetchData = (hashName = window.location.hash) => {
       $("#data-container").html(list);
       $("#item-list").html(itemsArr.map(singleItem).join(""));
       navigationListener(".item-link");
+
+      /**
+       * Set up listener modules
+       */
+      searchListener("#search-data", "#data-container .row");
+      sortListener("#sort-data", "#data-container .row");
     },
     error: function (request, error, res) {
       const msg = request.responseJSON;

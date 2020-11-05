@@ -38,7 +38,7 @@ export const albumItem = ({ i, id, type, name, imageURL }) => `
 <a href="#${type}=${id}" id='list-item-link' class="item-link item-${i}" key="${i}">
   <div class='album-item' id='list-item'>
     <img src='${imageURL}' alt='${name}' width="180" height="180" />
-    <h2 class="title">${name}</h2>
+    <h2 class="title sort-text">${name}</h2>
   </div>
  </a>
 `;
