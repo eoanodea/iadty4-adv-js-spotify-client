@@ -34,7 +34,7 @@ export const navigationListener = (id) => {
 export const searchListener = (id, data) => {
   $(id).on("input", function () {
     var value = $(this).val().toLowerCase();
-    searchData($(data), "div", value);
+    searchData($(data), $(data).children()[0], value);
   });
 };
 /**

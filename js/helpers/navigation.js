@@ -8,6 +8,8 @@ import { navigationListener } from "./listener.js";
  */
 export const buildNavigation = (name = window.location.hash) => {
   if ($("#side-nav").length) $("#side-nav").empty();
+  if ($(".item-image").length) $(".item-image").remove();
+
   fetchDataType
     .filter((item) => item.display)
     .forEach((item, i) => {

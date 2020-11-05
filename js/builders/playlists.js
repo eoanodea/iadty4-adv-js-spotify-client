@@ -28,6 +28,7 @@ export const buildPlaylistArr = (item) => {
     description: item.description,
     followers: item.followers.total,
     owner: item.owner.display_name,
+    imageURL: item.images[0].url,
   };
 
   return { tracks, header };
@@ -42,11 +43,21 @@ export const buildPlaylistArr = (item) => {
  * @param {int} followers - The number of followers playlist has
  * @param {String} owner - The owner of the playlist
  */
-export const playlistList = ({ name, description, followers, owner }) => {
+export const playlistList = ({
+  name,
+  description,
+  followers,
+  owner,
+  imageURL,
+}) => {
+  const title = $("#page-title");
   /**
    * Set the page title
    */
-  $("#page-title").text(name);
+  title.text(name);
+  title.before(
+    `<img class="item-image" src=${imageURL} alt=${name} width="150" height="150" />`
+  );
 
   return `
   ${playlistDesc(description, followers, owner)}
@@ -74,7 +85,7 @@ export const playlistList = ({ name, description, followers, owner }) => {
 export const playlistDesc = (description, followers, owner) => `
 <div class="container">
   <div class="row">
-    <p class="col-sm">${description}</p>
+    <p class="col-md">${description}</p>
     <div class="col-sm row justify-content-end-sm">
       <p class="text-muted">Followers: <br /> ${followers}</p>
       <p class="text-muted">Created by: <br /> ${owner}</p>
