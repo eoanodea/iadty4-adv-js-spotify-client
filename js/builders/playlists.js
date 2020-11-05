@@ -1,3 +1,5 @@
+import { millisecondsToTime } from "../helpers/time.js";
+
 /**
  * Builds the playlist array to fill into
  * the playlist template
@@ -72,8 +74,8 @@ export const playlistList = ({ name, description, followers, owner }) => {
 export const playlistDesc = (description, followers, owner) => `
 <div class="container">
   <div class="row">
-    <p class="col">${description}</p>
-    <div class="col row justify-content-end">
+    <p class="col-sm">${description}</p>
+    <div class="col-sm row justify-content-end-sm">
       <p class="text-muted">Followers: <br /> ${followers}</p>
       <p class="text-muted">Created by: <br /> ${owner}</p>
     </div>
@@ -93,6 +95,6 @@ export const playlistItem = ({ i, name, duration, href }) => `
 <tr class="clickable-row" data-href="${href}">
     <th scope="row">${i}</th>
     <td>${name}</td>
-    <td>${duration}</td>
+    <td>${millisecondsToTime(duration)}</td>
  </tr>
 `;
