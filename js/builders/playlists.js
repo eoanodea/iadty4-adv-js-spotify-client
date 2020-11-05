@@ -52,7 +52,7 @@ export const playlistList = ({
 }) => {
   const title = $("#page-title");
   /**
-   * Set the page title
+   * Set the page title and cover image
    */
   title.text(name);
   title.before(

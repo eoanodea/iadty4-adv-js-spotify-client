@@ -28,6 +28,7 @@ export const buildSongsArr = (item) => {
     released: item.release_date,
     total: item.total_tracks,
     owner: item.label,
+    imageURL: item.images[0].url,
   };
 
   return { tracks, header };
@@ -42,11 +43,15 @@ export const buildSongsArr = (item) => {
  * @param {int} followers - The number of followers song has
  * @param {String} owner - The owner of the song
  */
-export const songList = ({ name, released, total, owner }) => {
+export const songList = ({ name, released, total, owner, imageURL }) => {
+  const title = $("#page-title");
   /**
-   * Set the page title
+   * Set the page title and cover image
    */
-  $("#page-title").text(name);
+  title.text(name);
+  title.before(
+    `<img class="item-image" src=${imageURL} alt=${name} width="150" height="150" />`
+  );
 
   return `
   ${songDesc(released, total, owner)}
@@ -74,9 +79,11 @@ export const songList = ({ name, released, total, owner }) => {
 export const songDesc = (released, total, owner) => `
 <div class="container">
   <div class="row">
-    <p class="col-sm">Released: ${new Date(released).toDateString()}</p>
     <div class="col-sm row justify-content-end-sm">
       <p class="text-muted">Total: <br /> ${total}</p>
+      <p class="text-muted">Released: <br /> ${new Date(
+        released
+      ).toDateString()}</p>
       <p class="text-muted">Label: <br /> ${owner}</p>
     </div>
   </div>
