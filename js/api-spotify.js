@@ -26,7 +26,8 @@ export const fetchDataType = [
     display: true,
   },
   { name: "new-releases", type: "albums", url: "browse/albums", display: true },
-  { name: "albums", type: "albums", url: "albums", display: false },
+  { name: "album", type: "playlists", url: "albums" },
+  { name: "albums", type: "albums", url: "albums" },
   {
     name: "featured-playlists",
     type: "playlists",
