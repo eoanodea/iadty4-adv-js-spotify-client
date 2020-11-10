@@ -16,12 +16,6 @@ import {
  * Builder modules import
  */
 import { buildDetail } from "./builders/index.js";
-import { albumList, albumItem, buildAlbumArr } from "./builders/albums.js";
-import {
-  categoryList,
-  categoryItem,
-  buildCategoryArr,
-} from "./builders/categories.js";
 import { error } from "./builders/error.js";
 
 /**
