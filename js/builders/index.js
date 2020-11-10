@@ -12,7 +12,6 @@ import { buildSongsArr, songList, songItem } from "./songs.js";
  * @returns {itemsArr, list, singleItem} - To be appended to the document
  */
 export const buildDetail = (response, type) => {
-  console.log("build detail!", response, "yyyypeee", type);
   switch (type.name) {
     case "categories":
       return buildCategory(response[type.type].items);

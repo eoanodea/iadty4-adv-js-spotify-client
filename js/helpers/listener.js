@@ -44,7 +44,6 @@ export const searchListener = (id, data) => {
  * @param {string} data - Data Container of which to search
  */
 export const sortListener = (id, data) => {
-  console.log("data !!", id, data);
   $(id).change(function () {
     /**
      * Get the selected index from the select element
