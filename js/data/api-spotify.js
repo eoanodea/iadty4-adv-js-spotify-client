@@ -10,48 +10,23 @@ import {
   navigationListener,
   sortListener,
   searchListener,
-} from "./helpers/listener.js";
+} from "../helpers/listener.js";
 
 /**
  * Builder modules import
  */
-import { buildDetail } from "./builders/index.js";
-import { error } from "./builders/error.js";
+import { buildDetail } from "../builders/index.js";
+import { error } from "../builders/error.js";
+
+/**
+ * Data types
+ */
+import { fetchDataType } from "./data-types.js";
 
 /**
  * Base URL for Spotify API
  */
 const baseUrl = "https://api.spotify.com";
-
-/**
- * Different types of data in the application
- * display boolean set to true when it displays on the navigation bar
- */
-export const fetchDataType = [
-  {
-    name: "category",
-    type: "playlists",
-    url: "browse/categories",
-    afterURL: "playlists",
-  },
-  {
-    name: "categories",
-    type: "categories",
-    url: "browse/categories",
-    display: true,
-  },
-  { name: "new-releases", type: "albums", url: "browse/albums", display: true },
-  { name: "album", type: "playlists", url: "albums" },
-  { name: "albums", type: "albums", url: "albums" },
-  {
-    name: "featured-playlists",
-    type: "playlists",
-    url: "browse/playlists",
-    display: true,
-  },
-  { name: "playlists", type: "playlists", url: "playlists" },
-  { name: "playlist", type: "playlists", url: "playlists" },
-];
 
 /**
  * Get an auth token from Spotify

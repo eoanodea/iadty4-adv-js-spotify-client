@@ -1,4 +1,5 @@
-import { fetchDataType, fetchData } from "./../api-spotify.js";
+import { fetchDataType } from "../data/data-types.js";
+import { fetchData } from "../data/api-spotify.js";
 import { navigationListener } from "./listener.js";
 
 /**

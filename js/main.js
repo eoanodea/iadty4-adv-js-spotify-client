@@ -1,5 +1,4 @@
-import { authorize, fetchData } from "./api-spotify.js";
-import { searchListener, sortListener } from "./helpers/listener.js";
+import { authorize, fetchData } from "./data/api-spotify.js";
 import { buildNavigation } from "./helpers/navigation.js";
 
 $(document).ready(function () {
