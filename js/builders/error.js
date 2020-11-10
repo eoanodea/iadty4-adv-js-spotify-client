@@ -3,7 +3,7 @@
  *
  * @param {string} msg - The error message
  */
-export const error = ({ msg }) => `
+export const error = (msg) => `
     <div class='error-container' id="error-box">
         <h2>Data Error</h2>
         <p>${msg}</p>

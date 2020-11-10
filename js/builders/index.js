@@ -33,7 +33,7 @@ const buildCategory = (items) => {
   const itemsArr = buildCategoryArr(items);
   const list = categoryList();
   const singleItem = categoryItem;
-  const dataName = "#data-container .row";
+  const dataName = "#data-container #item-list";
   return { itemsArr, list, singleItem, dataName };
 };
 
@@ -47,7 +47,7 @@ const buildAlbum = (items, type) => {
   const itemsArr = buildAlbumArr(items, type.type);
   const list = albumList();
   const singleItem = albumItem;
-  const dataName = "#data-container .row";
+  const dataName = "#data-container #item-list";
 
   return { itemsArr, list, singleItem, dataName };
 };

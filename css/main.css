@@ -28,6 +28,11 @@ body {
   margin: 20px;
 }
 
+.btn-primary {
+  background-color: #65d36e;
+  border-color: #65d36e;
+}
+
 /**
 --- NAV BAR
 **/

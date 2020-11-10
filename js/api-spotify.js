@@ -144,9 +144,11 @@ export const fetchDetail = (hashName) => {
       sortListener("#sort-data", htmlData.dataName);
     },
     error: function (request, error, res) {
-      const msg = request.responseJSON;
-      console.log("Error!: " + msg);
-      renderErrorMessage(msg.error.message);
+      const err = request.responseJSON;
+
+      console.log("Error!: " + err.error.message);
+
+      renderErrorMessage(err.error.message);
     },
   });
 };
@@ -164,7 +166,7 @@ export const fetchData = (hashName = window.location.hash) => {
     hashName.includes(item.name)
   );
 
-  const type = fetchDataType[dataTypeI].type;
+  const type = fetchDataType[dataTypeI];
 
   if (!token) return authorize();
   $.ajax({
@@ -192,36 +194,32 @@ export const fetchData = (hashName = window.location.hash) => {
        * Get the JSON data from the response
        */
       const response = res.responseJSON;
-      let itemsArr, list, singleItem;
-      if (type === "categories") {
-        itemsArr = buildCategoryArr(response[type].items);
-        list = categoryList();
-        singleItem = categoryItem;
-      } else {
-        itemsArr = buildAlbumArr(response[type].items, type);
-        list = albumList();
-        singleItem = albumItem;
-      }
+
+      /**
+       * Builds the html data for the page
+       * using the data type and JSON response
+       */
+      const htmlData = buildDetail(response, type);
 
       /**
        * Append to the document container
        */
-      $("#data-container").html(list);
-      $("#item-list").html(itemsArr.map(singleItem).join(""));
+      $("#data-container").html(htmlData.list);
+      $("#item-list").html(htmlData.itemsArr.map(htmlData.singleItem).join(""));
       navigationListener(".item-link");
 
       /**
        * Set up listener modules
        */
-      searchListener("#search-data", "#data-container .row");
-      sortListener("#sort-data", "#data-container .row");
+      searchListener("#search-data", htmlData.dataName);
+      sortListener("#sort-data", htmlData.dataName);
     },
     error: function (request, error, res) {
-      const msg = request.responseJSON;
+      const err = request.responseJSON;
 
-      console.log("Error!: " + msg);
+      console.log("Error!: " + err.error.message);
 
-      renderErrorMessage(msg.error.message);
+      renderErrorMessage(err.error.message);
     },
   });
 };
