@@ -41,8 +41,8 @@ export const sortByNestedText = (
  */
 export const sortByNestedKeys = (parent, childSelector) => {
   const items = parent.children(childSelector).sort(function (a, b) {
-    const keyA = $(a).attr("key");
-    const keyB = $(b).attr("key");
+    const keyA = parseInt($(a).attr("key"));
+    const keyB = parseInt($(b).attr("key"));
 
     return keyA < keyB ? -1 : keyA > keyB ? 1 : 0;
   });
