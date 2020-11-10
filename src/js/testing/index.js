@@ -41,11 +41,18 @@ $(document).ready(function () {
    * Testing subsequent spotify data requests
    */
   QUnit.module("Subsequent Spotify Data Request", function () {
-    QUnit.test("Populate container with data", function (assert) {
-      assert.true(
-        $("#data-container #item-list").children().length > 0,
-        "The data container has been populated with data"
-      );
+    QUnit.test("Populate container with data (Waits 1000 ms)", function (
+      assert
+    ) {
+      // console.log("running!", $("#data-container #item-list").children());
+      var done = assert.async();
+      setTimeout(() => {
+        assert.true(
+          $("#data-container #item-list").children().length > 0,
+          "The data container has been populated with data"
+        );
+        done();
+      }, 1000);
     });
   });
 });
