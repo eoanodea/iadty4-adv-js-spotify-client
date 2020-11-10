@@ -21,7 +21,6 @@ export const navigationListener = (id) => {
     });
   });
   resetSortOptions();
-  resetListeners();
 };
 
 /**
@@ -71,13 +70,4 @@ export const sortListener = (id, data) => {
       options[selectedIndex].id !== "alphabetical"
     );
   });
-};
-
-export const resetListeners = () => {
-  $("#data-container .row").unbind();
-  console.log("off!!");
-  //
-
-  // off("click", function () {
-  // });
 };
