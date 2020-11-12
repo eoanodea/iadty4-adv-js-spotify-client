@@ -33,6 +33,7 @@ const baseUrl = "https://api.spotify.com";
  * And set it in the session Storage
  */
 export const authorize = () => {
+  //Encodes a string in base 64
   const auth = btoa(`${variables.client_id}:${variables.client_secret}`);
 
   $.ajax({
@@ -64,11 +65,13 @@ export const fetchDetail = (hashName) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   let detail = hashName.split("=")[1];
 
+  //Find the index of the data Type in the fetchDataType array
   const dataTypeI = fetchDataType.findIndex(
     (item) => item.name === hashName.split("=")[0].replace("#", "")
   );
 
   const url = fetchDataType[dataTypeI].url;
+
   if (fetchDataType[dataTypeI].afterURL)
     detail += `/${fetchDataType[dataTypeI].afterURL}`;
 
