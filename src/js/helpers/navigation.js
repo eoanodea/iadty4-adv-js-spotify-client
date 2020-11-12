@@ -1,6 +1,7 @@
 import { fetchDataType } from "../data/data-types.js";
 import { fetchData } from "../data/api-spotify.js";
 import { navigationListener } from "./listener.js";
+import { buildNavItem } from "../builders/navigation.js";
 
 /**
  * Builds the sidebar navigation from the fetchDataType
@@ -13,22 +14,9 @@ export const buildNavigation = (name = window.location.hash) => {
 
   fetchDataType
     .filter((item) => item.display)
-    .forEach((item, i) => {
-      const isActive = name.includes(item.name);
-
-      $("#side-nav").append(`
-        <li class="nav-item" key="${i}">
-        <a class="nav-link ${isActive ? "active" : ""}" href="#${
-        item.name
-      }" id="nav-link">
-          <span data-feather="home"></span>
-          ${item.name.replace("-", " ")} ${
-        isActive ? '<span class="sr-only">(current)</span>' : ""
-      }
-        </a>
-      </li>
-        `);
-    });
+    .forEach((item, i) =>
+      $("#side-nav").append(buildNavItem(item.name, name, i))
+    );
 
   navigationListener(".nav-link");
 };
