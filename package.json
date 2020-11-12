@@ -19,8 +19,6 @@
   "homepage": "https://github.com/IADT-CC-Y4-AdvJS/ca-1-javascript-and-jquery-eoanodea#readme",
   "dependencies": {},
   "devDependencies": {
-    "css-loader": "^5.0.1",
-    "style-loader": "^2.0.0",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
   }
