@@ -1,6 +1,3 @@
-require("../css/bootstrap.min.css");
-require("../css/main.css");
-
 import { authorize, fetchData } from "./data/api-spotify.js";
 import { buildNavigation } from "./helpers/navigation.js";
 
