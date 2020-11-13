@@ -23,16 +23,14 @@ export const sortByNestedText = (
   keySelector,
   inverse = false
 ) => {
-  var items = parent.children(childSelector).sort(compareText);
+  var items = parent.children(childSelector).sort(function (a, b) {
+    var vA = $(keySelector, a).text();
+    var vB = $(keySelector, b).text();
+    if (inverse) return vA > vB ? -1 : vA > vB ? 1 : 0;
+    return vA < vB ? -1 : vA > vB ? 1 : 0;
+  });
   parent.append(items);
 };
-
-function compareText() {
-  var vA = $(keySelector, a).text();
-  var vB = $(keySelector, b).text();
-  if (inverse) return vA > vB ? -1 : vA > vB ? 1 : 0;
-  return vA < vB ? -1 : vA > vB ? 1 : 0;
-}
 
 /**
  * Sort nested items within a jQuery array
