@@ -44,7 +44,6 @@ $(document).ready(function () {
     QUnit.test("Populate container with data (Waits 1000 ms)", function (
       assert
     ) {
-      // console.log("running!", $("#data-container #item-list").children());
       var done = assert.async();
       setTimeout(() => {
         assert.true(
