@@ -23,15 +23,26 @@ export const buildSongsArr = (item) => {
   /**
    * Data for the song header
    */
-  const header = {
-    name: item.name,
-    released: item.release_date,
-    total: item.total_tracks,
-    owner: item.label,
-    imageURL: item.images[0].url,
-  };
+  const header = buildHeader(item);
 
   return { tracks, header };
+
+  /**
+   * Builds the header for the page
+   *
+   * @param {*} item
+   *
+   * @returns {object} - the header object
+   */
+  function buildHeader(item) {
+    return {
+      name: item.name,
+      released: item.release_date,
+      total: item.total_tracks,
+      owner: item.label,
+      imageURL: item.images[0].url,
+    };
+  }
 };
 
 /**
