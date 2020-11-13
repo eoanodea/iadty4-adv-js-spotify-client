@@ -110,7 +110,7 @@ export const songDesc = (released, total, owner) => `
  * @param {String} href - The URL to the song on Spotify web
  */
 export const songItem = ({ i, name, duration, href }) => `
-<tr class="clickable-row" data-href="${href}" key="${i}">
+<tr class="clickable-row fade-in" data-href="${href}" key="${i}">
     <th scope="row">${i}</th>
     <td class="sort-text">${name}</td>
     <td>${millisecondsToTime(duration)}</td>
