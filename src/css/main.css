@@ -1,6 +1,10 @@
 /**
 --- GENERAL
 **/
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #222;
   color: #fff;
@@ -165,7 +169,7 @@ select#sort-data {
 }
 
 .item-link,
-.clickable-row {
+.table {
   animation: fadein 1s;
   -moz-animation: fadein 1s; /* Firefox */
   -webkit-animation: fadein 1s; /* Safari and Chrome */

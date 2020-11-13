@@ -13,6 +13,8 @@ export const buildNavigation = (name = window.location.hash) => {
   if ($(".item-image").length) $(".item-image").remove();
   if ($("#sidebarMenu").hasClass("show")) $(".navbar-toggler").click();
 
+  window.scrollTo(0, 0);
+
   fetchDataType
     .filter((item) => item.display)
     .forEach((item, i) =>
