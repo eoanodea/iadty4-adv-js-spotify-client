@@ -11,6 +11,7 @@ import { buildNavItem } from "../builders/navigation.js";
 export const buildNavigation = (name = window.location.hash) => {
   if ($("#side-nav").length) $("#side-nav").empty();
   if ($(".item-image").length) $(".item-image").remove();
+  if ($("#sidebarMenu").hasClass("show")) $(".navbar-toggler").click();
 
   fetchDataType
     .filter((item) => item.display)

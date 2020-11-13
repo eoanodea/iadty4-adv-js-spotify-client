@@ -6,6 +6,10 @@ body {
   color: #fff;
 }
 
+a:hover {
+  color: inherit;
+}
+
 .bg-dark {
   background-color: #000000 !important;
   color: #fff !important;
@@ -145,6 +149,8 @@ select#sort-data {
 **/
 
 .list-item {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   width: 180px;
   height: 180px;
   border-radius: 8px;
@@ -166,8 +172,7 @@ select#sort-data {
   border-radius: 8px;
 }
 
-.list-item:hover,
-.album-item:hover {
+.item-link:hover {
   text-decoration: underline;
   color: #65d36e;
 }
