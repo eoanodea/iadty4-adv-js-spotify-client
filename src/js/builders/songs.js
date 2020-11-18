@@ -17,7 +17,7 @@ export const buildSongsArr = (item) => {
       duration: item.duration_ms,
       i,
       id: item.id,
-      href: item.external_urls.spotify,
+      href: item.uri,
     });
   });
   /**

@@ -10,6 +10,7 @@ import {
   navigationListener,
   sortListener,
   searchListener,
+  openSongInSpotify,
 } from "../helpers/listener.js";
 
 /**
@@ -108,7 +109,13 @@ export const fetchDetail = (hashName) => {
        */
       $("#data-container").html(htmlData.list);
       $("#item-list").html(htmlData.itemsArr.map(htmlData.singleItem).join(""));
+
+      // if (fetchDataType[dataTypeI].type === "playlists") {
+      // } else {
       navigationListener(".item-link");
+      openSongInSpotify(".clickable-row");
+
+      // }
       /**
        * Set up listener modules
        */

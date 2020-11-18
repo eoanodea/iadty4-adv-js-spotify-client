@@ -23,6 +23,16 @@ export const navigationListener = (id) => {
   resetSortOptions();
 };
 
+export const openSongInSpotify = (id) => {
+  $(id).each((i, el) => {
+    $(el).click(function () {
+      const name = $(this).data("href");
+
+      window.open(name, "_blank");
+    });
+  });
+};
+
 /**
  * Search Event Listener
  *
